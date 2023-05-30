@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,32 +27,24 @@ td {
 	<table
 		style="width: 900px; height: 500px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<td colspan="2">
-				<jsp:include page="/common/Top.jsp"></jsp:include>
+			<td colspan="2"><jsp:include page="/common/Top.jsp"></jsp:include>
 			</td>
 		</tr>
 		<tr>
-			<td style="width: 200px">
-				<jsp:include page="/common/Left.jsp"></jsp:include>
+			<td style="width: 200px"><jsp:include page="/common/Left.jsp"></jsp:include>
 			</td>
 			<td style="width: 700px">
-				<!-- MAIN PAGE CONTENT  -->
-				<%
-					String id = null;
-					id = (String)session.getAttribute("userid");
-					
-					if(id != null){
-						//회원
-						out.print(id + " 회원님 방가방가^^<br>");
-						if(id.equals("admin")){
-							out.print("<a href='Ex03_Memberlist.jsp'>회원관리</a>");
-						}
-					}else{
-						//로그인 하지 않은 사용자
-						//메인 페이지는 회원만 볼수 있어요 (강제 링크 추가)
-						out.print("사이트 방문을 환영합니다 ^^ <br>회원가입 좀 하지 ...");
-					}
-				%>
+				<c:if test="${not empty sessionScope.userid}">
+    			<h1>반갑다, ${sessionScope.userid}!</h1>
+				    <c:if test="${sessionScope.userid eq 'admin'}">
+				        <a href="${pageContext.request.contextPath}/managemember.do">회원관리</a>
+				        <h1>넌 admin이구나</h1>
+				    </c:if>
+				</c:if> 
+				<c:if test="${empty sessionScope.userid}">
+				    <h1>로그인좀 해라!</h1>
+				</c:if>
+
 			</td>
 		</tr>
 		<tr>

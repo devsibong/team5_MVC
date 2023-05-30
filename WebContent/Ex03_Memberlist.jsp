@@ -1,22 +1,6 @@
-<%@page import="kr.or.kosa.utils.Singleton_Helper"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	/*  
-	 1.관리자만 접근 가능한 페이지
-	 2.로그인한 일반 회원이 주소값을 외워서 ... 접근불가 
-	 3.그러면  회원에 관련되 모든 페이지 상단에는 아래 코드를 ..... : sessionCheck.jsp >> include 
-	*/
-	 if(session.getAttribute("userid") == null || !session.getAttribute("userid").equals("admin") ){
-		//강제로 페이지 이동
-		//out.print("<script>location.href='Ex02_JDBC_Login.jsp'</script>");
-		response.sendRedirect("Ex02_JDBC_Login.jsp");
-	} 
-%>	
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,47 +39,40 @@ td {
 				회원 목록(리스트) 출력
 				목록 (select id, ip from koreamember)
 			-->	
-				<%
-					Connection conn = null;
-					PreparedStatement pstmt = null;
-					ResultSet rs = null;
-					try{
-						conn = Singleton_Helper.getConnection("oracle");
-						String sql="select id, ip from koreamember";
-						pstmt = conn.prepareStatement(sql);
-						rs = pstmt.executeQuery(); 
-				%>	
+				
 					<table style="width: 400px;height: 100px;margin-left: auto;margin-right: auto">
 							<tr><th colspan="4">회원리스트</th></tr>
-						<% while(rs.next()){ %>
-							<tr>
-								<td width="100px">
-									<a href='Ex03_MemberDetail.jsp?id=<%=rs.getString("id")%>'><%=rs.getString("id")%></a>
-								</td>
-								<td width="100px"><%=rs.getString("ip")%></td>
-								<td>
-									<a href="Ex03_MemberDelete.jsp?id=<%=rs.getString("id")%>">[삭제]</a>
-								</td>
-								<td>
-									<a href="Ex03_MemberEdit.jsp?id=<%=rs.getString("id")%>">[수정]</a>
-								</td>
-							</tr> 
-						<% } %>
+							<c:forEach var="member" items="${memberList}">
+							  <tr>
+							    <td width="100px">
+							      <form action="${pageContext.request.contextPath}/memberdetail.do" method="post">
+							        <input type="hidden" name="id" value="${member.id}">
+							        <button type="submit">${member.id}</button>
+							      </form>
+							    </td>
+							    <td width="100px">${member.ip}</td>
+							    <td>
+							      <form action="${pageContext.request.contextPath}/deletemember.do" method="post">
+							        <input type="hidden" name="id" value="${member.id}">
+							        <button type="submit">[삭제]</button>
+							      </form>
+							    </td>
+							    <td>
+							      <form action="${pageContext.request.contextPath}/updatemember.do" method="post">
+							        <input type="hidden" name="id" value="${member.id}">
+							        <button type="submit">[수정]</button>
+							      </form>
+							    </td>
+							  </tr>
+							</c:forEach>
 					</table>
 					<hr>
-						<form action="Ex03_MemberSearch.jsp" method="post">
+						<form action="${pageContext.request.contextPath}/searchmember.do" method="post">
 							회원명:<input type="text" name="search">
 							<input type="submit" value="이름검색하기">
 						</form>
 					<hr>					
-				<%	
-					}catch(Exception e){
-						
-					}finally{
-						Singleton_Helper.close(rs);
-						Singleton_Helper.close(pstmt);
-					}
-				%>
+				
 			
 			</td>
 		</tr>
