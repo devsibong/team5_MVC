@@ -15,6 +15,7 @@ import kr.or.kosa.service.JoinOkServiceAction;
 import kr.or.kosa.service.LoginOkServiceAction;
 import kr.or.kosa.service.LogoutServiceAction;
 import kr.or.kosa.service.MemberDeleteServiceAction;
+import kr.or.kosa.service.MemberDetailServiceAction;
 import kr.or.kosa.service.MemberManageServiceAction;
 import kr.or.kosa.service.MemberSearchServiceAction;
 import kr.or.kosa.service.MemberUpdateOkServiceAction;
@@ -66,6 +67,10 @@ public class MemberController extends HttpServlet {
     	}else if(urlcommand.equals("/managemember.do")) {
     		//post
     		action = new MemberManageServiceAction();
+    		forward = action.execute(request, response);
+    	}else if(urlcommand.equals("/memberdetail.do")) {
+    		//post
+    		action = new MemberDetailServiceAction();
     		forward = action.execute(request, response);
     	}else if(urlcommand.equals("/deletemember.do")) {
     		//post
