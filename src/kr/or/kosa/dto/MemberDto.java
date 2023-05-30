@@ -5,7 +5,7 @@ public class MemberDto {
 	private String pwd;
 	private String name;
 	private int age;
-	private char gender;
+	private String gender;
 	private String email;
 	private String ip;
 	
@@ -33,10 +33,10 @@ public class MemberDto {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getEmail() {

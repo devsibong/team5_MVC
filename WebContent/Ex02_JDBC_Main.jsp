@@ -44,7 +44,8 @@ td {
 						//회원
 						out.print(id + " 회원님 방가방가^^<br>");
 						if(id.equals("admin")){
-							out.print("<a href='Ex03_Memberlist.jsp'>회원관리</a>");
+							out.print("<a href='List.member'>회원관리</a>");
+							//out.print("<a href='Ex03_Memberlist.jsp'>회원관리</a>");
 						}
 					}else{
 						//로그인 하지 않은 사용자

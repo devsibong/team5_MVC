@@ -8,10 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.or.kosa.action.Action;
 import kr.or.kosa.action.ActionForward;
+import kr.or.kosa.service.IsLoginService;
 import kr.or.kosa.service.MemberJoinService;
+import kr.or.kosa.service.MemberListService;
+import kr.or.kosa.service.MemberLoginService;
 
 // FrontMemberController
 
@@ -32,14 +36,34 @@ public class MemberController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
-		
 		if(urlcommand.equals("/Join.member")) {
+			forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/Ex02_JDBC_JoinForm.jsp");
+
+		}else if(urlcommand.equals("/JoinOk.member")) {
 			action = new MemberJoinService();
 			forward = action.execute(request, response);
+
 		}else if(urlcommand.equals("/Login.member")) {
 			forward = new ActionForward();
-			forward.setRedirect(false);
-			forward.setPath("/Ex02_JDBC_Login.jsp");
+    		forward.setRedirect(false);
+    		forward.setPath("/Ex02_JDBC_Login.jsp");
+			
+		}else if(urlcommand.equals("/LoginOk.member")) {
+			action = new MemberLoginService();
+			forward = action.execute(request, response);
+			
+		}else if(urlcommand.equals("/Logout.member")) {
+			HttpSession session = request.getSession();
+			forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/Ex02_JDBC_Login.jsp");
+    		session.invalidate();
+		}else if(urlcommand.equals("/List.member")) {
+			action = new MemberListService();
+			System.out.println(request.getAttribute("memberlist"));
+			forward = action.execute(request, response);
 		}
 		
 		if(forward != null) {

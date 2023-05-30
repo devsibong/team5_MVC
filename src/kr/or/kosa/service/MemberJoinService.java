@@ -17,7 +17,7 @@ public class MemberJoinService implements Action {
 		member.setPwd(request.getParameter("pwd")); 
 		member.setName(request.getParameter("mname")); 
 		member.setAge(Integer.parseInt(request.getParameter("age"))); 
-		member.setGender( request.getParameter("gender").charAt(0)); 
+		member.setGender( request.getParameter("gender")); 
 		member.setEmail(request.getParameter("email")); 
 		member.setIp(request.getRemoteAddr()); 
 		

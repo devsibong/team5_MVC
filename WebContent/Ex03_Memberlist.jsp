@@ -4,6 +4,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	/*  
 	 1.관리자만 접근 가능한 페이지
@@ -51,51 +52,35 @@ td {
 				<jsp:include page="/common/Left.jsp"></jsp:include>
 			</td>
 			<td style="width: 700px">
-			<!--  
-				회원 목록(리스트) 출력
-				목록 (select id, ip from koreamember)
-			-->	
-				<%
-					Connection conn = null;
-					PreparedStatement pstmt = null;
-					ResultSet rs = null;
-					try{
-						conn = Singleton_Helper.getConnection("oracle");
-						String sql="select id, ip from koreamember";
-						pstmt = conn.prepareStatement(sql);
-						rs = pstmt.executeQuery(); 
-				%>	
-					<table style="width: 400px;height: 100px;margin-left: auto;margin-right: auto">
-							<tr><th colspan="4">회원리스트</th></tr>
-						<% while(rs.next()){ %>
+				<table style="width: 400px;height: 100px;margin-left: auto;margin-right: auto">
+					<tr><th colspan="4">회원리스트</th></tr>
+					<c:forEach items="${memberlist}" var="member" >
+						<tr>							
+							<td width="100px">
+								<a href='/Detail.member'>${member.id}</a>
+							</td>
+							<td width="100px"> ${member.ip} </td>
+							<td>
+								<a href="/Delete.member">[삭제]</a>
+							</td>
+							<td>
+								<a href="/Update.member">[수정]</a>
+							</td>
+						</tr>
+								
+					</c:forEach>
+							
 							<tr>
-								<td width="100px">
-									<a href='Ex03_MemberDetail.jsp?id=<%=rs.getString("id")%>'><%=rs.getString("id")%></a>
-								</td>
-								<td width="100px"><%=rs.getString("ip")%></td>
-								<td>
-									<a href="Ex03_MemberDelete.jsp?id=<%=rs.getString("id")%>">[삭제]</a>
-								</td>
-								<td>
-									<a href="Ex03_MemberEdit.jsp?id=<%=rs.getString("id")%>">[수정]</a>
-								</td>
+								
 							</tr> 
-						<% } %>
-					</table>
+ 					</table>
 					<hr>
 						<form action="Ex03_MemberSearch.jsp" method="post">
 							회원명:<input type="text" name="search">
 							<input type="submit" value="이름검색하기">
 						</form>
 					<hr>					
-				<%	
-					}catch(Exception e){
-						
-					}finally{
-						Singleton_Helper.close(rs);
-						Singleton_Helper.close(pstmt);
-					}
-				%>
+				
 			
 			</td>
 		</tr>
