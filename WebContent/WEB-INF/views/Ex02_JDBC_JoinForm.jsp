@@ -1,11 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <style type="text/css">
 	.nav {
@@ -68,44 +69,43 @@
 		</div>
 		<div class="mainContents">
 			<form action="${pageContext.request.contextPath}/joinok.do" method="post" name="joinForm" id="joinForm">
-					<h3 style="text-align: center;">회원가입</h3>
-					<div>
-						<table
-							style="width: 400px; height: 200px; margin-left: auto; margin-right: auto;">
-							<tr>
-								<th>ID:</th>
-								<td><input type="text" name="id" id="id"></td>
-							</tr>
-							<tr>
-								<th>PWD:</th>
-								<td><input type="password" name="pwd" id="pwd"></td>
-							</tr>
-							<tr>
-								<th>Name:</th>
-								<td><input type="text" name="mname" id="mname"></td>
-							</tr>
-							<tr>
-								<th>age:</th>
-								<td><input type="text" name="age" id="age" maxlength="3"></td>
-							</tr>
-							<tr>
-								<th>Gender:</th>
-								<td><input type="radio" name="gender" id="gender" value="여"
-									checked>여자 <input type="radio" name="gender"
-									id="gender" value="남">남자</td>
-							</tr>
-							<tr>
-								<th>Email:</th>
-								<td><input type="text" name="email" id="email"></td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="submit" value="회원가입">
-									<input type="reset" value="취소"></td>
-							</tr>
-						</table>
 
-					</div>
+			<h3 style="text-align: center;">Join Page</h3>
+			
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example1">ID:</label>
+			    <input type="text" name="id" id="id" class="form-control" />
+			  </div>			
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example2">PWD:</label>
+			    <input type="password" name="pwd" id="pwd" class="form-control" />
+			  </div>
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example2">Name:</label>
+			    <input type="text" name="mname" id="mname" class="form-control" />
+			  </div>
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example2">age:</label>
+			    <input type="text" name="age" id="age" class="form-control" />
+			  </div>
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example2">Gender:</label>
+			    <input type="radio" name="gender" id="gender" value="여"
+									checked/>여자 <input type="radio" name="gender"
+									id="gender" value="남" />남자
+			  </div>
+			  <div class="form-outline mb-4">
+			    <label class="form-label" for="form1Example2">Email:</label>
+			    <input type="text" name="email" id="email" class="form-control" />
+			  </div>
+			
+			  <!-- Submit button -->
+			  <button type="submit" value="회원가입" class="btn btn-primary btn-block">회원가입</button>
+			  <button type="reset" value="취소" class="btn btn-primary btn-block">취소</button>
+			
+
+
+					
 				</form>
 
 		</div>

@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>Insert title here</title> 
 
 <style type="text/css">
 	.nav {
@@ -25,20 +24,6 @@
 		align-items: center;
 	}
 
-	table {
-		border: solid 2px black;
-		border-collapse: collapse;
-	}
-	
-	tr {
-		border: solid 1px blue;
-		background-color: white;
-		color: black;
-	}
-	
-	td {
-		border: solid 1px red;
-	}
 
 
 </style>
@@ -52,36 +37,38 @@
 			<jsp:include page="/common/Left.jsp"></jsp:include>
 		</div>
 		<div class="mainContents">
-			<table style="width: 400px; height: 100px; margin-left: auto; margin-right: auto;">
+			<div>
+				<h1>회원 상세 조회</h1>
+				<table class="table table-light table-striped" style=" margin-left: auto; margin-right: auto;">
 						<tr>
-							<td style="width: 100px">아이디</td>
+							<th style="width: 100px">아이디</th>
 							<td style="width: 100px">${member.id}</td>
 						</tr>
 						<tr>
-							<td style="width: 100px">비번</td>
+							<th style="width: 100px">비번</th>
 							<td style="width: 100px">${member.pwd}</td>
 						</tr>
 						<tr>
-							<td style="width: 100px">이름</td>
+							<th style="width: 100px">이름</th>
 							<td style="width: 100px">${member.name}</td>
 						</tr>
 						<tr>
-							<td style="width: 100px">나이</td>
+							<th style="width: 100px">나이</th>
 							<td style="width: 100px">${member.age}</td>
 						</tr>
 						<tr>
-							<td style="width: 100px">성별</td>
+							<th style="width: 100px">성별</th>
 							<td style="width: 100px">${member.gender}</td>
 						</tr>
 						<tr>
-							<td style="width: 100px">이메일</td>
+							<th style="width: 100px">이메일</th>
 							<td style="width: 100px">${member.email}</td>
 						</tr>
-						<tr>
-							<td colspan="2"><a href="${pageContext.request.contextPath}/managemember.do">목록가기</a></td>
+						<tr class="table-primary">
+							<th colspan="2"><a href="${pageContext.request.contextPath}/managemember.do">목록가기</a></th>
 						</tr>
 				</table>
-
+			</div>
 		</div>
 	</div>
 	<div>

@@ -3,7 +3,7 @@
 <%
 	String msg = (String)request.getAttribute("member_msg");
 	String url = (String)request.getAttribute("member_url");
-
+ 
     if(msg != null && url != null){
 %>    	
 	<script>

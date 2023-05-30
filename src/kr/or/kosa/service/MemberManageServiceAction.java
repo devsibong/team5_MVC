@@ -21,7 +21,7 @@ public class MemberManageServiceAction implements Action {
 			request.setAttribute("memberList", memberList);
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/Ex03_Memberlist.jsp");
+			forward.setPath("/WEB-INF/views/Ex03_Memberlist.jsp");
 		} else {
 			forward = new ActionForward();
 			forward.setRedirect(false);

@@ -25,7 +25,7 @@ public class LoginOkServiceAction implements Action {
 		} else {
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/Ex02_JDBC_Login.jsp");
+			forward.setPath("/WEB-INF/views/Ex02_JDBC_Login.jsp");
 		}
 		return forward;
 	}

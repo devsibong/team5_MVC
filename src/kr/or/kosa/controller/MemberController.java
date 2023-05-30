@@ -47,7 +47,7 @@ public class MemberController extends HttpServlet {
     		//get
     		forward = new ActionForward();
     		forward.setRedirect(false);
-    		forward.setPath("/Ex02_JDBC_JoinForm.jsp");
+    		forward.setPath("/WEB-INF/views/Ex02_JDBC_JoinForm.jsp");
     	}else if(urlcommand.equals("/joinok.do")) {
     		//post
     		action = new JoinOkServiceAction();
@@ -56,7 +56,7 @@ public class MemberController extends HttpServlet {
     		//get
     		forward = new ActionForward();
     		forward.setRedirect(false);
-    		forward.setPath("/Ex02_JDBC_Login.jsp");
+    		forward.setPath("/WEB-INF/views/Ex02_JDBC_Login.jsp");
     	}else if(urlcommand.equals("/loginok.do")) {
     		//post
     		action = new LoginOkServiceAction();
