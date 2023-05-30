@@ -9,7 +9,7 @@
     <div class="container-fluid">
 	    <a class="navbar-brand text-white" href="#"> <i class="bi bi-dice-5  text-white"></i> 5조 </a>
       <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
           <li class="nav-item active">
             <a class="nav-link text-white" aria-current="page" href="#">Home</a>
           </li>
