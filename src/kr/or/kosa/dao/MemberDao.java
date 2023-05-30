@@ -6,135 +6,255 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import kr.or.kosa.dto.MemberDto;
+import kr.or.kosa.dto.Member;
 import kr.or.kosa.utils.ConnectionHelper;
 
 public class MemberDao {
-	//POOL
-		/*
-		DataSource ds = null;
-		
-		public MemoDao() {
-			try {
-				//JNDI
-				Context context = new InitialContext();
-				//현재 [프로젝트]에서 특정 이름을 가진 객체를 검색 (사용 : 이름기반 검색)
-				ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle"); //  정해진 약속 : java:comp/env/ + jdbc/oracle
-			    //lookup 된 객체의 타입이 DataSource
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		*/
-	
-	// 회원가입
-	public int insertMember(MemberDto member) {
-		
-		System.out.println(member.toString());
-		int resultrow=0;
-		
-		//Class.forName("oracle.jdbc.OracleDriver");
-		PreparedStatement pstmt=null;
-		String sql="insert into koreamember(id,pwd,name,age,gender,email,ip) values(?,?,?,?,?,?,?)";
+	// 전체조회
+	public List<Member> getMemberList() throws SQLException {
 
-		//POOL
-		Connection conn = null;
-		
-		try{
-			//POOL
-			conn = ConnectionHelper.getConnection("oracle");
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPwd());
-			pstmt.setString(3, member.getName());
-			pstmt.setInt(4, member.getAge());
-			pstmt.setString(5, member.getGender());
-			pstmt.setString(6, member.getEmail());
-			pstmt.setString(7, member.getIp());
-			
-			resultrow = pstmt.executeUpdate();
-			
-		}catch(Exception e){
-			// pstmt.executeUpdate(); 실행시  PK 위반 예외 발생    if 타지 않고 ....
-			System.out.println("dao-insertMember : "+ e);
-			resultrow = -1;
-		}finally{
-			if(pstmt != null){ try{pstmt.close();}catch(Exception e){} }
-			if(conn != null){ try{conn.close();}catch(Exception e){} }
-		}
-		
-		return resultrow;
-	}
-	
-	// 로그인확인
-	public int selectUserByIdPwd(String id, String pwd) {
-		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String sql = "select id, pwd from koreamember where id = ?";
-		
-		Connection conn = null;
-		try {
-			conn = ConnectionHelper.getConnection("oracle");
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			//System.out.println("rs : " + rs);
-			if(rs.next()) {
-				String pwd2 = rs.getString("pwd");
-				if(pwd.equals(pwd2)) {
-					result = 1;
-				}else {
-					result = -1;
-				}
-			}
-			
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			ConnectionHelper.close(rs);
-			ConnectionHelper.close(pstmt);
-			try {
-				ConnectionHelper.close(conn);
-			}catch (Exception e2) {
-				System.out.println(e2.getMessage());
-			}
-		}
-		
-		return result;
-	}
-	
-	// 회원리스트 전체 조회
-	public List<MemberDto> selectAllMember() throws SQLException{
-		PreparedStatement pstmt = null;
-		String sql = "select id, pwd, name, age, gender, email, ip from koreamember";
-	
-		Connection conn = ConnectionHelper.getConnection("oracle"); // pool
-		
+		String sql = "select id, ip from koreamember";
+
+		/// POOL///////////////////////
+		Connection conn = ConnectionHelper.getConnection("oracle");
+		//////////////////////////////
+
 		pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
-		
-		List<MemberDto> memberlist = new ArrayList<>();
-		
-		while(rs.next()) {
-			MemberDto member = new MemberDto();
-			member.setId(rs.getString("id"));
-			member.setPwd(rs.getString("pwd"));
-			member.setName(rs.getString("name"));
-			member.setAge(rs.getInt("age"));
-			member.setGender(rs.getString("gender"));
-			member.setEmail(rs.getString("email"));
-			member.setIp(rs.getString("ip"));
-			memberlist.add(member);
+
+		List<Member> memberlist = new ArrayList<Member>(); // POINT
+		// [new memo()][new memo()][new memo()][new memo()]
+		while (rs.next()) {
+			Member m = Member.builder().id(rs.getString("id")).ip(rs.getString("ip")).build();
+			memberlist.add(m);
 		}
+
 		ConnectionHelper.close(rs);
 		ConnectionHelper.close(pstmt);
-		ConnectionHelper.close(conn); // pool 연결객체 반환
-		
+
+		// POOL 에게 연결객체 반환////////////
+		ConnectionHelper.close(conn);
+		////////////////////////////////
 		return memberlist;
 	}
+
+	// 삽입
+	public int insertMember(Member m) {
+		int resultrow = 0;
+
+		PreparedStatement pstmt = null;
+		String sql = "insert into koreamember(id,pwd,name,age,gender,email,ip) values(?,?,?,?,?,?,?)";
+
+		// POOL
+		Connection conn = null;
+
+		try {
+			// POOL
+			conn = ConnectionHelper.getConnection("oracle");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, m.getId());     
+			pstmt.setString(2, m.getPwd());    
+			pstmt.setString(3, m.getName());   
+			pstmt.setInt(4, m.getAge());       
+			pstmt.setString(5, m.getGender());  
+			pstmt.setString(6, m.getEmail());   
+			pstmt.setString(7, m.getIp());      
+
+
+			resultrow = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn); 
+		}
+
+		return resultrow;
+	}
+
+	// 수정
+	public int updateMember(Member m) {
+	    int resultrow = 0;
+	    
+	    PreparedStatement pstmt = null;
+	    String sql = "UPDATE koreamember SET pwd=?, name=?, age=?, gender=?, email=?, ip=? WHERE id=?";
+	    
+	    // POOL
+	    Connection conn = null;
+	    
+	    try {
+	        // POOL
+	        conn = ConnectionHelper.getConnection("oracle");
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        
+	        pstmt.setString(1, m.getPwd());    
+	        pstmt.setString(2, m.getName());   
+	        pstmt.setInt(3, m.getAge());       
+	        pstmt.setString(4, m.getGender());  
+	        pstmt.setString(5, m.getEmail());   
+	        pstmt.setString(6, m.getIp());      
+	        pstmt.setString(7, m.getId());      // 업데이트할 회원의 id 필드
+	        
+	        resultrow = pstmt.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } finally {
+	        ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+	    }
+	    
+	    return resultrow;
+	}
+
+
+	// 삭제
+	public int deleteMember(String id) {
+	    int resultrow = 0;
+	    
+	    PreparedStatement pstmt = null;
+	    String sql = "DELETE FROM koreamember WHERE id=?";
+	    
+	    // POOL
+	    Connection conn = null;
+	    
+	    try {
+	        // POOL
+	        conn = ConnectionHelper.getConnection("oracle");
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        
+	        pstmt.setString(1, id); // 삭제할 회원의 id 필드
+	        
+	        resultrow = pstmt.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } finally {
+	        ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+	    }
+	    
+	    return resultrow;
+	}
+	
+	public List<Member> searchMembersByName(String name) {
+	    List<Member> memberList = new ArrayList<>();
+
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT id, pwd, name, age, gender, email, ip FROM koreamember WHERE name LIKE ?";
+
+	    // POOL
+	    Connection conn = null;
+
+	    try {
+	        // POOL
+	        conn = ConnectionHelper.getConnection("oracle");
+
+	        pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setString(1, "%" + name + "%");
+
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            Member member = Member.builder()
+	                    .id(rs.getString("id"))
+	                    .pwd(rs.getString("pwd"))
+	                    .name(rs.getString("name"))
+	                    .age(rs.getInt("age"))
+	                    .gender(rs.getString("gender"))
+	                    .email(rs.getString("email"))
+	                    .ip(rs.getString("ip"))
+	                    .build();
+
+	            memberList.add(member);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        ConnectionHelper.close(rs);
+	        ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+	    }
+
+	    return memberList;
+	}
+
+	
+	public boolean login(String id, String pwd) {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+	    boolean result = false;
+
+	    try {
+	        String sql = "select id, pwd from koreamember where id=?";
+	        conn = ConnectionHelper.getConnection("oracle");
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, id);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            String storedPwd = rs.getString("pwd");
+	            if (pwd.equals(storedPwd)) {
+	                result = true;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        ConnectionHelper.close(rs);
+	        ConnectionHelper.close(pstmt);
+	        ConnectionHelper.close(conn);
+	    }
+	    return result;
+	}
+	
+	public Member getMember(String id) {
+	    Member member = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+
+	    try {
+	        conn = ConnectionHelper.getConnection("oracle");
+	        String sql = "SELECT id, pwd, name, age, gender, email, ip FROM koreamember WHERE id = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, id);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            member = Member.builder()
+	                    .id(rs.getString("id"))
+	                    .pwd(rs.getString("pwd"))
+	                    .name(rs.getString("name"))
+	                    .age(rs.getInt("age"))
+	                    .gender(rs.getString("gender"))
+	                    .email(rs.getString("email"))
+	                    .ip(rs.getString("ip"))
+	                    .build();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        ConnectionHelper.close(rs);
+	        ConnectionHelper.close(pstmt);
+	        ConnectionHelper.close(conn);
+	    }
+
+	    return member;
+	}
+
+
 }

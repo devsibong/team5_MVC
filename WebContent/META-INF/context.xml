@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
+
 <!-- 
 Resource  커넥션풀을 만드는 기본 설정 (어떤DB , 계정을 가지고 접속 설정)
 <Resource
@@ -31,4 +32,5 @@ password="tiger"   // 연결한 db의 비밀번호
               type="javax.sql.DataSource"
 			  auth="Container" 
               name="jdbc/oracle" />
+
 </Context>

@@ -8,26 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.kosa.action.Action;
 import kr.or.kosa.action.ActionForward;
 import kr.or.kosa.dao.MemberDao;
-import kr.or.kosa.dto.MemberDto;
+import kr.or.kosa.dto.Member;
 
-public class MemberListService implements Action{
-
+public class MemberSearchServiceAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-		try {
-			MemberDao dao = new MemberDao();
-			List<MemberDto> memberlist = dao.selectAllMember();
-			request.setAttribute("memberlist", memberlist);
-			
-			forward = new ActionForward();
-			forward.setRedirect(false);
-			forward.setPath("/Ex03_Memberlist.jsp");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		MemberDao memberDao = new MemberDao();
+		List<Member> memberList = memberDao.searchMembersByName(request.getParameter("search"));
+		request.setAttribute("memberList", memberList);
+		forward = new ActionForward();
+		forward.setRedirect(false);
+		forward.setPath("/Ex03_MemberSearch.jsp");
 		return forward;
 	}
-	
 }
