@@ -14,12 +14,19 @@ public class MemberSearchServiceAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-		MemberDao memberDao = new MemberDao();
-		List<Member> memberList = memberDao.searchMembersByName(request.getParameter("search"));
-		request.setAttribute("memberList", memberList);
-		forward = new ActionForward();
-		forward.setRedirect(false);
-		forward.setPath("/Ex03_MemberSearch.jsp");
+		SessionService sessionService = new SessionService();
+		if (sessionService.checkAdmin(request)) {
+			MemberDao memberDao = new MemberDao();
+			List<Member> memberList = memberDao.searchMembersByName(request.getParameter("search"));
+			request.setAttribute("memberList", memberList);
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/Ex03_MemberSearch.jsp");
+		} else {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/main.do");
+		}
 		return forward;
 	}
 }
