@@ -1,13 +1,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <style type="text/css">
-table {
+	.nav {
+		display: grid;
+	}
+	.underNav {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		background-color: black;
+		height: 100vh;
+	}
+	.mainContents{
+		display:flex;
+		justify-content : center;
+		background-color: white;
+		align-items: center;
+	}
+	table {
 	border: solid 2px black;
 	border-collapse: collapse;
 }
@@ -21,26 +38,19 @@ tr {
 td {
 	border: solid 1px red;
 }
+	
 </style>
 </head>
 <body>
-	<table style="width: 900px; height: 500px; margin-left: auto; margin-right: auto;">
-		<tr>
-			<td colspan="2">
-				<jsp:include page="/common/Top.jsp"></jsp:include>
-			</td>
-		</tr>
-		<tr>
-			<td style="width: 200px">
-				<jsp:include page="/common/Left.jsp"></jsp:include>
-			</td>
-			<td style="width: 700px">
-			<!--  
-				회원 목록(리스트) 출력
-				목록 (select id, ip from koreamember)
-			-->	
-				
-					<table style="width: 400px;height: 100px;margin-left: auto;margin-right: auto">
+	<div class="nav">
+		<jsp:include page="/common/Top.jsp"></jsp:include>
+	</div>
+	<div class="underNav">
+		<div class="leftBar">
+			<jsp:include page="/common/Left.jsp"></jsp:include>
+		</div>
+		<div class="mainContents">
+			<table style="width: 400px;height: 100px;margin-left: auto;margin-right: auto">
 							<tr><th colspan="4">회원리스트</th></tr>
 							<c:forEach var="member" items="${memberList}">
 							  <tr>
@@ -72,13 +82,14 @@ td {
 							<input type="submit" value="이름검색하기">
 						</form>
 					<hr>					
-				
-			
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><jsp:include page="/common/Bottom.jsp"></jsp:include></td>
-		</tr>
-	</table>
+
+		</div>
+	</div>
+	<div>
+		<td colspan="2"><jsp:include page="/common/Bottom.jsp"></jsp:include></td>
+	</div>
 </body>
 </html>
+<script type="text/javascript">
+
+</script>

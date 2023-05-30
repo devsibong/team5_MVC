@@ -1,25 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <style type="text/css">
-table {
-	border: solid 2px black;
-	border-collapse: collapse;
-}
-
-tr {
-	border: solid 1px blue;
-	background-color: white;
-	color: black;
-}
-
-td {
-	border: solid 1px red;
-}
+	.nav {
+		display: grid;
+	}
+	.underNav {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		background-color: black;
+		height: 100vh;
+	}
+	.mainContents{
+		display:flex;
+		justify-content : center;
+		background-color: white;
+		align-items: center;
+	}
+	
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -53,34 +57,17 @@ td {
   });
  });
 </script>
-<!--  
-CREATE TABLE koreaMember
-(
-    id VARCHAR2(50) PRIMARY KEY ,
-    pwd VARCHAR2(50) NOT NULL,
-    NAME VARCHAR2(50) NOT NULL,
-    age NUMBER ,
-    gender CHAR(4),
-    email VARCHAR2(50),
-    ip   VARCHAR2(50)
-)
--->
-
 </head>
 <body>
-	<table
-		style="width: 900px; height: 500px; margin-left: auto; margin-right: auto;">
-		<tr>
-			<td colspan="2">
-				<jsp:include page="/common/Top.jsp"></jsp:include>
-			</td>
-		</tr>
-		<tr>
-			<td style="width: 200px">
-				<jsp:include page="/common/Left.jsp"></jsp:include>
-			</td>
-			<td style="width: 700px">
-				<form action="${pageContext.request.contextPath}/joinok.do" method="post" name="joinForm" id="joinForm">
+	<div class="nav">
+		<jsp:include page="/common/Top.jsp"></jsp:include>
+	</div>
+	<div class="underNav">
+		<div class="leftBar">
+			<jsp:include page="/common/Left.jsp"></jsp:include>
+		</div>
+		<div class="mainContents">
+			<form action="${pageContext.request.contextPath}/joinok.do" method="post" name="joinForm" id="joinForm">
 					<h3 style="text-align: center;">회원가입</h3>
 					<div>
 						<table
@@ -120,13 +107,14 @@ CREATE TABLE koreaMember
 
 					</div>
 				</form>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<jsp:include page="/common/Bottom.jsp"></jsp:include>
-			</td>
-		</tr>
-	</table>
+
+		</div>
+	</div>
+	<div>
+		<td colspan="2"><jsp:include page="/common/Bottom.jsp"></jsp:include></td>
+	</div>
 </body>
 </html>
+<script type="text/javascript">
+
+</script>

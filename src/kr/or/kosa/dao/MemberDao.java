@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import kr.or.kosa.dto.Member;
 import kr.or.kosa.utils.ConnectionHelper;
 
@@ -72,11 +71,7 @@ public class MemberDao {
 			e.printStackTrace();
 		} finally {
 			ConnectionHelper.close(pstmt);
-			try {
-				ConnectionHelper.close(conn); // 반환하기
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
+			ConnectionHelper.close(conn); 
 		}
 
 		return resultrow;
@@ -113,11 +108,7 @@ public class MemberDao {
 	        e.printStackTrace();
 	    } finally {
 	        ConnectionHelper.close(pstmt);
-	        try {
-	            ConnectionHelper.close(conn); // 반환하기
-	        } catch (Exception e2) {
-	            // TODO: handle exception
-	        }
+            ConnectionHelper.close(conn);
 	    }
 	    
 	    return resultrow;
@@ -149,11 +140,7 @@ public class MemberDao {
 	        e.printStackTrace();
 	    } finally {
 	        ConnectionHelper.close(pstmt);
-	        try {
-	            ConnectionHelper.close(conn); // 반환하기
-	        } catch (Exception e2) {
-	            // TODO: handle exception
-	        }
+            ConnectionHelper.close(conn);
 	    }
 	    
 	    return resultrow;
@@ -198,11 +185,7 @@ public class MemberDao {
 	    } finally {
 	        ConnectionHelper.close(rs);
 	        ConnectionHelper.close(pstmt);
-	        try {
-	            ConnectionHelper.close(conn);
-	        } catch (Exception e2) {
-	            e2.printStackTrace();
-	        }
+            ConnectionHelper.close(conn);
 	    }
 
 	    return memberList;
@@ -272,7 +255,6 @@ public class MemberDao {
 
 	    return member;
 	}
-
 
 
 }

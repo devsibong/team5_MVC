@@ -1,41 +1,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <style type="text/css">
-table {
-	border: solid 2px black;
-	border-collapse: collapse;
-}
-
-tr {
-	border: solid 1px blue;
-	background-color: white;
-	color: black;
-}
-
-td {
-	border: solid 1px red;
-}
+	.nav {
+		display: grid;
+	}
+	.underNav {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		background-color: black;
+		height: 100vh;
+	}
+	.mainContents{
+		display:flex;
+		justify-content : center;
+		background-color: white;
+		align-items: center;
+	}
+	
 </style>
 </head>
 <body>
-	<table
-		style="width: 900px; height: 500px; margin-left: auto; margin-right: auto;">
-		<tr>
-			<td colspan="2"><jsp:include page="/common/Top.jsp"></jsp:include>
-			</td>
-		</tr>
-		<tr>
-			<td style="width: 200px"><jsp:include page="/common/Left.jsp"></jsp:include>
-			</td>
-			<td style="width: 700px">
-				<form action="${pageContext.request.contextPath}/updatememberok.do" method="post">
+	<div class="nav">
+		<jsp:include page="/common/Top.jsp"></jsp:include>
+	</div>
+	<div class="underNav">
+		<div class="leftBar">
+			<jsp:include page="/common/Left.jsp"></jsp:include>
+		</div>
+		<div class="mainContents">
+			<form action="${pageContext.request.contextPath}/updatememberok.do" method="post">
 
 					<h3 style="text-align: center;">회원정보수정</h3>
 					<div>
@@ -82,13 +83,16 @@ td {
 
 					</div>
 				</form>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><jsp:include page="/common/Bottom.jsp"></jsp:include>
-			</td>
-		</tr>
-	</table>
+
+		</div>
+	</div>
+	<div>
+		<td colspan="2"><jsp:include page="/common/Bottom.jsp"></jsp:include></td>
+	</div>
 </body>
 </html>
+<script type="text/javascript">
+
+</script>
+
 
