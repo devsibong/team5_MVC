@@ -20,7 +20,6 @@ import kr.or.kosa.service.MemberManageServiceAction;
 import kr.or.kosa.service.MemberSearchServiceAction;
 import kr.or.kosa.service.MemberUpdateOkServiceAction;
 import kr.or.kosa.service.MemberUpdateServiceAction;
-import kr.or.kosa.service.SessionServiceAction;
 
 
 @WebServlet("*.do")
@@ -40,8 +39,10 @@ public class MemberController extends HttpServlet {
     	ActionForward forward=null;
     	
     	if(urlcommand.equals("/main.do")) {
-    		action = new SessionServiceAction();
-    		forward = action.execute(request, response);
+    		//get
+    		forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/Ex02_JDBC_Main.jsp");
     	}else if(urlcommand.equals("/join.do")) {
     		//get
     		forward = new ActionForward();

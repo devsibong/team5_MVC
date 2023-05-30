@@ -14,21 +14,18 @@ public class MemberManageServiceAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-		MemberDao memberDao = new MemberDao();
-		if(request.getSession().getAttribute("userid").equals("admin")) {
-			try {
-				List<Member> memberList = memberDao.getMemberList();
-				request.setAttribute("memberList", memberList);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+		SessionService sessionService = new SessionService();
+		if (sessionService.checkAdmin(request)) {
+			MemberDao memberDao = new MemberDao();
+			List<Member> memberList = memberDao.getMemberList();
+			request.setAttribute("memberList", memberList);
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("/Ex03_Memberlist.jsp");
 		} else {
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/Ex02_JDBC_Login.jsp");
+			forward.setPath("/main.do");
 		}
 		return forward;
 	}
