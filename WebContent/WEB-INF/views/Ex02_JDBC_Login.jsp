@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <style type="text/css">
 	.nav {
@@ -15,7 +16,7 @@
 		display: grid;
 		grid-template-columns: 1fr 5fr;
 		background-color: black;
-		height: 100vh;
+		height: 87vh;		
 	}
 	.mainContents{
 		display:flex;
@@ -39,24 +40,24 @@
 					id="joinForm">
 
 					<h3 style="text-align: center;">Login Page</h3>
-					<div>
-						<table
-							style="width: 400px; height: 100px; margin-left: auto; margin-right: auto;">
-							<tr>
-								<th>아이디:</th>
-								<td><input type="text" name="id" id="id"></td>
-							</tr>
-							<tr>
-								<th>비밀번호</th>
-								<td><input type="password" name="pwd" id="pwd"></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="로그인"> <input
-									type="reset" value="취소"></td>
-							</tr>
-						</table>
+					
+					  <!-- id input -->
+					  <div class="form-outline mb-4">
+					    <label class="form-label" for="form1Example1">아이디</label>
+					    <input type="text" name="id" id="id" class="form-control" />
+					  </div>
+					
+					  <!-- Password input -->
+					  <div class="form-outline mb-4">
+					    <label class="form-label" for="form1Example2">비밀번호</label>
+					    <input type="password" name="pwd" id="pwd" class="form-control" />
+					  </div>
+					
+					  <!-- Submit button -->
+					  <button type="submit" value="로그인" class="btn btn-primary btn-block">로그인</button>
+					  <button type="submit" value="취소" class="btn btn-primary btn-block">취소</button>
+					
 
-					</div>
 				</form>
 		</div>
 	</div>

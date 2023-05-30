@@ -20,7 +20,7 @@ public class MemberUpdateServiceAction implements Action {
 			request.setAttribute("member", member);
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/Ex03_MemberEdit.jsp");
+			forward.setPath("/WEB-INF/views/Ex03_MemberEdit.jsp");
 		} else {
 			forward = new ActionForward();
 			forward.setRedirect(false);

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -16,13 +15,15 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="Ex02_JDBC_Main.jsp">Main</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="Ex02_JDBC_Login.jsp">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="Ex02_JDBC_JoinForm.jsp">Register</a>
-          </li>
-         </ul>        
+          <c:if test="${empty sessionScope.userid}">
+	          <li class="nav-item">
+	            <a class="nav-link text-white" href="${pageContext.request.contextPath}/login.do">Login</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link text-white" href="${pageContext.request.contextPath}/join.do">Register</a>
+	          </li>
+          </c:if>     
+        </ul>   
           
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <c:if test="${not empty sessionScope.userid}">

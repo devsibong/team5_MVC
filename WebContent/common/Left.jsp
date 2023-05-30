@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,28 +20,30 @@
                     <span class="media-body">Main</span>
                 </a>
             </li>
-        
-            <li class="nav-item">
-                <a class="nav-link text-white" href="Ex02_JDBC_Login.jsp">
-                    <i class="material-icons pmd-list-icon pmd-sm">inbox</i>
-                    <span class="media-body">Login</span>
-                </a>
-            </li>
-           
+        	
+        	<c:if test="${empty sessionScope.userid}">
+	            <li class="nav-item">
+	                <a class="nav-link text-white" href="${pageContext.request.contextPath}/login.do">
+	                    <i class="material-icons pmd-list-icon pmd-sm">send</i>
+	                    <span class="media-body">Login</span>
+	                </a>
+	            </li>           
 			
-            <li class="nav-item">
-                <a class="nav-link text-white" href="Ex02_JDBC_JoinForm.jsp">
-                    <i class="material-icons pmd-list-icon pmd-sm">drafts</i>
-                    <span class="media-body">Register</span>
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">
-                    <i class="material-icons pmd-list-icon pmd-sm">send</i>
-                    <span class="media-body">Sent Email</span>
-                </a>
-            </li>
+	            <li class="nav-item">
+	                <a class="nav-link text-white" href="${pageContext.request.contextPath}/join.do">
+	                    <i class="material-icons pmd-list-icon pmd-sm">drafts</i>
+	                    <span class="media-body">Register</span>
+	                </a>
+	            </li>
+            </c:if>
+            <c:if test="${sessionScope.userid eq 'admin' }">
+            	<li class="nav-item">
+	                <a class="nav-link text-white" href="${pageContext.request.contextPath}/managemember.do">
+	                    <i class="material-icons pmd-list-icon pmd-sm">drafts</i>
+	                    <span class="media-body">회원관리</span>
+	                </a>
+	            </li>
+            </c:if>
             
         </ul>
     </aside>
